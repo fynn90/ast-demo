@@ -1,0 +1,20 @@
+/*
+ * @Author: Fan
+ * @Date: 2020-12-04 16:51:47
+ * @description: 
+ */
+const recast = require("recast");
+const TNT = recast.types.namedTypes
+
+recast.run(function(ast, printSource) {
+  recast.visit(ast, {
+      visitExpressionStatement: function(path) {
+        const node = path.value
+        // 判断是否为ExpressionStatement，正确则输出一行字。
+        if(TNT.ExpressionStatement.check(node)){
+          console.log('这是一个ExpressionStatement')
+        }
+        this.traverse(path);
+      }
+    });
+});
